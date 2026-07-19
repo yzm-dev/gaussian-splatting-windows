@@ -8,7 +8,7 @@
 ```bash
 git clone https://github.com/yzm-dev/gaussian-splatting-windows.git --recursive
 
-# （可选）若没有--recursive拉取子模块，可用下面命令拉取：
+# 若没有--recursive拉取子模块，可用下面命令拉取：
 git submodule update --init --recursive
 ```
 
@@ -19,19 +19,33 @@ git submodule update --init --recursive
 
 推荐使用 Anaconda 创建虚拟环境。
 
-### 1. 安装 PyTorch (CUDA 11.8)
+### 1. 安装 PyTorch (CUDA 12.6)
 ```bash
-pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
-```
-*注意：请确保您的显卡驱动支持 CUDA 11.8。*
-
-### 2. 安装其他依赖
-```bash
+# 创建环境
+conda create -n 3dgs python=3.12 -y
+# 切换到3dgs环境
+conda activate 3dgs
+# torch 安装
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+# 其他依赖
 pip install plyfile tqdm
 ```
+*注意：请确保显卡安装对应 CUDA 12.6/CUDNN 12.X*
 
-### 3. 安装子模块
+### 2. 安装子模块
+> 需要 **Visual Studio 2022 环境**
+
+1. 安装：[Visual Studio 2022](https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=community&channel=Release&version=VS2022) > 工作负荷 > 使用C++的桌面开发
+
+2. 菜单搜索 *"x64 Native Tools Command Prompt for VS 2022"*  打开该CMD
+
 ```bash
+where.exe cl # 指向 Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.XX.....
+# 进入项目根目录
+cd /d D:\your_path\gaussian-splatting-windows
+# 切换3dgs环境
+conda activate 3dgs
+# 然后安装下面两个子模块：
 pip install -e submodules/simple-knn --no-build-isolation
 pip install -e submodules/diff-gaussian-rasterization --no-build-isolation
 ```
@@ -112,7 +126,7 @@ gaussian-splatting-windows/
 
 ## 五、注意事项
 
-*   **路径问题**：脚本中使用了绝对路径，请务必根据您的实际文件位置进行修改。
+*   **路径问题**：脚本中使用了绝对路径，请根据您的实际文件位置进行修改。
 *   **显存要求**：Gaussian Splatting 训练需要较高的显存，建议使用 24GB 显存的显卡（如 RTX 3090/4090），最低可能需要 8GB-12GB（取决于图像分辨率和数量）。
 *   **COLMAP**：脚本会自动调用 `external` 目录下的 COLMAP，无需单独安装。
 
