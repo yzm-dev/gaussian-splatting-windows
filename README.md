@@ -41,6 +41,7 @@ pip install plyfile tqdm
 
 ```bash
 where.exe cl # 指向 Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.XX.....
+set DISTUTILS_USE_SDK=1 # 必须设置！
 # 进入项目根目录
 cd /d D:\your_path\gaussian-splatting-windows
 # 切换3dgs环境
